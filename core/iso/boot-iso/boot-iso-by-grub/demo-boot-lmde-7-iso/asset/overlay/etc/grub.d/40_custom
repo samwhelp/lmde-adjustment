@@ -1,0 +1,31 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+
+
+
+menuentry "Lmde Live ISO" --class Debian {
+	set iso_file="/opt/iso/lmde/latest/lmde.iso"
+	search --set=iso_partition --no-floppy --file $iso_file
+	probe --set=iso_partition_uuid --fs-uuid $iso_partition
+	set img_dev="/dev/disk/by-uuid/$iso_partition_uuid"
+	loopback loop ($iso_partition)$iso_file
+
+	set extra_option=""
+	#set extra_option="components quiet splash"
+
+	set locale_option=""
+	#set locale_option="locales=en_US.UTF-8"
+	#set locale_option="locales=zh_TW.UTF-8"
+	#set locale_option="locales=zh_CN.UTF-8"
+	#set locale_option="locales=zh_HK.UTF-8"
+	#set locale_option="locales=ja_JP.UTF-8"
+	#set locale_option="locales=ko_KR.UTF-8"
+
+	set boot_option="${locale_option} ${extra_option}"
+	linux (loop)/live/vmlinuz boot=live buuid=${iso_partition_uuid} findiso=${iso_file} ${boot_option}
+	initrd (loop)/live/initrd.lz
+}
