@@ -4,6 +4,73 @@ set -e
 
 
 ################################################################################
+### Head: xfce
+##
+
+xfce_config_run_pre () {
+
+	xfce_service_stop
+
+
+	return 0
+
+}
+
+xfce_config_run_post () {
+
+	xfce_service_start
+
+
+	return 0
+
+}
+
+xfce_service_stop () {
+
+	xfce_service_stop_xfconfd
+
+	#xfce_service_stop_xfsettingsd
+
+
+	return 0
+
+}
+
+xfce_service_stop_xfconfd () {
+
+	if killall -9 xfconfd; then
+		return 0
+	fi
+
+
+	return 0
+
+}
+
+xfce_service_stop_xfsettingsd () {
+
+	if killall -9 xfsettingsd; then
+		return 0
+	fi
+
+
+	return 0
+
+}
+
+xfce_service_start () {
+
+
+	return 0
+
+}
+
+##
+### Tail: xfce
+################################################################################
+
+
+################################################################################
 ### Head: thunar
 ##
 
@@ -65,7 +132,11 @@ thunar_config_install_by_each_file () {
 
 main_config_install () {
 
+	xfce_config_run_pre
+
 	thunar_config_install
+
+	xfce_config_run_post
 
 }
 
