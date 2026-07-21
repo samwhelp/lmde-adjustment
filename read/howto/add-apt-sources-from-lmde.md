@@ -24,4 +24,4 @@ parent: Howto
 
 | Demo |
 | ---- |
-| []() |
+| [demo-add-apt-source-from-lmde](https://github.com/samwhelp/lmde-adjustment/tree/main/core/apt/demo-add-apt-source-from-lmde/demo-start) |
